@@ -77,16 +77,16 @@ function [ total_scan ] = get_nii_frame(filename)
    machine = 'ieee-le';
    new_ext = 0;
 
-   if findstr('.nii',fileprefix) & strcmp(fileprefix(end-3:end), '.nii')
+   if strfind(fileprefix, '.nii') & strcmp(fileprefix(end-3:end), '.nii')
       new_ext = 1;
       fileprefix(end-3:end)='';
    end
 
-   if findstr('.hdr',fileprefix) & strcmp(fileprefix(end-3:end), '.hdr')
+   if strfind(fileprefix, '.hdr') & strcmp(fileprefix(end-3:end), '.hdr')
       fileprefix(end-3:end)='';
    end
 
-   if findstr('.img',fileprefix) & strcmp(fileprefix(end-3:end), '.img')
+   if strfind(fileprefix, '.img') & strcmp(fileprefix(end-3:end), '.img')
       fileprefix(end-3:end)='';
    end
 

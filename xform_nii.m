@@ -132,7 +132,7 @@ function nii = xform_nii(nii, tolerance, preferredForm)
 
    %  There is no need for this program to transform Analyze data
    %
-   if nii.filetype == 0 & exist([nii.fileprefix '.mat'],'file')
+   if nii.filetype == 0 && exist([nii.fileprefix '.mat'],'file')
       load([nii.fileprefix '.mat']);	% old SPM affine matrix
       R=M(1:3,1:3);
       T=M(1:3,4);
