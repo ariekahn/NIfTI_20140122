@@ -186,6 +186,10 @@ function nii = load_untouch_nii(filename, img_idx, dim5_idx, dim6_idx, dim7_idx,
       %  fix fileprefix so it doesn't point to temp location
       %
       nii.fileprefix = gzFileName(1:end-7);
+      % Remove directory without prompting in octave
+      if isOctave()
+         confirm_recursive_rmdir (false, "local");
+      end
       rmdir(tmpDir,'s');
    end
 

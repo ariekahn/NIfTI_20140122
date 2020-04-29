@@ -237,6 +237,10 @@ function save_untouch_slice(slice, filename, slice_idx, img_idx, dim5_idx, dim6_
          movefile([fileprefix, '.nii.gz']);
       end;
 
+      % Remove directory without prompting in octave
+      if isOctave()
+         confirm_recursive_rmdir (false, "local");
+      end
       rmdir(tmpDir,'s');
    end;
 

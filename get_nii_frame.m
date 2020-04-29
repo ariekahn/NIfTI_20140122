@@ -148,6 +148,10 @@ function [ total_scan ] = get_nii_frame(filename)
    %  Clean up after gunzip
    %
    if exist('gzFileName', 'var')
+      % Remove directory without prompting in octave
+      if isOctave()
+         confirm_recursive_rmdir (false, "local");
+      end
       rmdir(tmpDir,'s');
    end
 

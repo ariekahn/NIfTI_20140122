@@ -218,6 +218,10 @@ function [nii] = load_nii_no_xform(filename, img_idx, old_RGB, preferredForm)
       %  fix fileprefix so it doesn't point to temp location
       %
       nii.fileprefix = gzFileName(1:end-7);
+      % Remove directory without prompting in octave
+      if isOctave()
+         confirm_recursive_rmdir (false, "local");
+      end
       rmdir(tmpDir,'s');
    end
 
