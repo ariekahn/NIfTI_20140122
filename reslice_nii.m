@@ -157,39 +157,36 @@ function [nii] = load_nii_no_xform(filename, img_idx, old_RGB, preferredForm)
       if ~isOctave() && (str2num(v(1:3)) < 7.1 || ~usejava('jvm'))
          error('Please use MATLAB 7.1 (with java) and above, or run gunzip outside MATLAB.');
       elseif strcmp(filename(end-6:end), '.img.gz')
-         % filename1 = filename;
-         % filename2 = filename;
-         % filename2(end-6:end) = '';
-         % filename2 = [filename2, '.hdr.gz'];
+         filename1 = filename;
+         filename2 = filename;
+         filename2(end-6:end) = '';
+         filename2 = [filename2, '.hdr.gz'];
 
-         % tmpDir = tempname;
-         % mkdir(tmpDir);
-         % gzFileName = filename;
+         tmpDir = tempname;
+         mkdir(tmpDir);
+         gzFileName = filename;
 
-         % filename1 = gunzip(filename1, tmpDir);
-         % filename2 = gunzip(filename2, tmpDir);
-         % filename = char(filename1);	% convert from cell to string
+         filename1 = gunzip_nii(filename1, tmpDir);
+         filename2 = gunzip_nii(filename2, tmpDir);
+         filename = char(filename1);	% convert from cell to string
       elseif strcmp(filename(end-6:end), '.hdr.gz')
-         % filename1 = filename;
-         % filename2 = filename;
-         % filename2(end-6:end) = '';
-         % filename2 = [filename2, '.img.gz'];
+         filename1 = filename;
+         filename2 = filename;
+         filename2(end-6:end) = '';
+         filename2 = [filename2, '.img.gz'];
 
-         % tmpDir = tempname;
-         % mkdir(tmpDir);
-         % gzFileName = filename;
+         tmpDir = tempname;
+         mkdir(tmpDir);
+         gzFileName = filename;
 
-         % filename1 = gunzip(filename1, tmpDir);
-         % filename2 = gunzip(filename2, tmpDir);
-         % filename = char(filename1);	% convert from cell to string
+         filename1 = gunzip_nii(filename1, tmpDir);
+         filename2 = gunzip_nii(filename2, tmpDir);
+         filename = char(filename1);	% convert from cell to string
       elseif strcmp(filename(end-6:end), '.nii.gz')
          tmpDir = tempname;
          mkdir(tmpDir);
          gzFileName = filename;
-         [pathtmp, nametmp, exttmp] = fileparts(filename);
-         % Use gzip manually to preserve file
-         system(['gzip -d -f -c ' gzFileName ' > ' fullfile(tmpDir,nametmp)]);
-         filename = fullfile(tmpDir, nametmp);
+         filename = gunzip_nii(filename, tmpDir);
          filename = char(filename);	% convert from cell to string
       end
    end
